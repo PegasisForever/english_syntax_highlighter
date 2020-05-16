@@ -16,10 +16,15 @@ body {
 }
 
 .color-dialog-main-content{
-    margin-top: 16px;
+    margin-top: 32px;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.color-preview-box{
+    padding: 16px;
+    padding-right: 64px;
 }
 
 .color-list{
@@ -29,10 +34,12 @@ body {
 
 .color-item{
     cursor: pointer;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    padding-left: 4px;
-    padding-right: 4px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .color-block{
@@ -46,4 +53,8 @@ body {
 
 .sketch-picker{
     box-shadow: none !important;
+}
+
+.mdc-dialog .mdc-dialog__surface {
+    max-width: none !important;
 }

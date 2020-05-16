@@ -17,6 +17,8 @@ import {Headline5} from "@material/react-typography"
 import MaterialIcon from "@material/react-material-icon"
 import Button from "@material/react-button"
 import {ColorSchemeDialog} from "./ColorSchemeDialog"
+import {generateHighlight} from "./highlightGenerator"
+import {previewText} from "./previewText"
 
 class ColorSchemeSection extends React.Component {
     render() {

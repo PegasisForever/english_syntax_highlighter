@@ -11,6 +11,8 @@ import TextField, {HelperText, Input} from "@material/react-text-field"
 import {SketchPicker} from "react-color"
 import cloneDeep from "lodash/cloneDeep"
 import {Body1} from "@material/react-typography"
+import {generateHighlight} from "./highlightGenerator"
+import {previewText} from "./previewText"
 
 function ColorItem(props) {
     return (
@@ -59,6 +61,7 @@ export class ColorSchemeDialog extends Component {
             selectedColorIndex: 0,
             colorScheme: {
                 name: "New Color Scheme",
+                isDark: false,
                 colors: [
                     "#f2777a",
                     "#f99157",
@@ -87,7 +90,7 @@ export class ColorSchemeDialog extends Component {
         return (
             <Dialog open onClose={() => delDialog()}>
                 <DialogContent>
-                    <TextField label='Name'><Input
+                    <TextField fullWidth label='Name'><Input
                         value={this.state.colorScheme.name}
                         onChange={(e) => {
                             const newScheme = cloneDeep(this.state.colorScheme)
@@ -96,6 +99,9 @@ export class ColorSchemeDialog extends Component {
                         }}/>
                     </TextField>
                     <div className={"color-dialog-main-content"}>
+                        <div className={"color-preview-box"} style={{background:"#222"}}>
+                            {generateHighlight(previewText,this.state.colorScheme.colors)}
+                        </div>
                         <ColorList
                             colors={this.state.colorScheme.colors}
                             selectedIndex={this.state.selectedColorIndex}
