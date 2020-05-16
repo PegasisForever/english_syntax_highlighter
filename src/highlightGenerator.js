@@ -1,39 +1,54 @@
 import {parse} from "node-html-parser"
 import React from "react"
 
-export const generateHighlight = (response, colors) => {
+export const generateHighlight = (response, styles) => {
     const root = parse(response)
     console.log(root)
 
     let resultText = []
     root.childNodes.forEach((node, index) => {
         if (node.tagName === "span") {
-            let color = colors[8]
             const className = node.classNames[0]
+
+            let color = styles[8].color
+            let isBold = styles[8].isBold
             if (className === "base08") {
-                color = colors[0]
+                color = styles[0].color
+                isBold = styles[0].isBold
             } else if (className === "base09") {
-                color = colors[1]
+                color = styles[1].color
+                isBold = styles[1].isBold
             } else if (className === "base0A") {
-                color = colors[2]
+                color = styles[2].color
+                isBold = styles[2].isBold
             } else if (className === "base0B") {
-                color = colors[3]
+                color = styles[3].color
+                isBold = styles[3].isBold
             } else if (className === "base0C") {
-                color = colors[4]
+                color = styles[4].color
+                isBold = styles[4].isBold
             } else if (className === "base0D") {
-                color = colors[5]
+                color = styles[5].color
+                isBold = styles[5].isBold
             } else if (className === "base07") {
-                color = colors[6]
+                color = styles[6].color
+                isBold = styles[6].isBold
             } else if (className === "base0E") {
-                color = colors[7]
+                color = styles[7].color
+                isBold = styles[7].isBold
             } else if (className === "base06") {
-                color = colors[9]
+                color = styles[9].color
+                isBold = styles[9].isBold
             } else if (className === "base0F") {
-                color = colors[10]
+                color = styles[10].color
+                isBold = styles[10].isBold
             } else if (className === "base0D") {
-                color = colors[11]
+                color = styles[11].color
+                isBold = styles[11].isBold
             }
-            resultText.push(<span style={{color: color}}>{node.firstChild.rawText}</span>)
+            resultText.push(<span style={{color: color, fontWeight: isBold ? "bold" : "normal"}}>
+                {node.firstChild.rawText}
+            </span>)
         } else if (node.tagName === "br") {
             resultText.push(<br/>)
         }

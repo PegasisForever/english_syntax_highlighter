@@ -3,7 +3,7 @@ body {
     padding: 0;
 }
 
-.content{
+.content {
     padding-left: 64px;
     padding-right: 64px;
     max-width: 900px;
@@ -11,38 +11,37 @@ body {
     margin-right: auto;
 }
 
-.add-btn{
+.add-btn {
     float: right;
 }
 
-.color-dialog-main-content{
+.color-dialog-main-content {
     margin-top: 32px;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
 }
 
-.color-preview-box{
-    padding: 16px;
-    padding-right: 64px;
+.color-preview-box {
+    min-width: 275px;
+    padding: 16px 64px 16px 16px;
 }
 
-.color-list{
+.color-list {
     margin-left: 32px;
     margin-right: 32px;
+    min-width: 140px;
 }
 
-.color-item{
+.color-item {
     cursor: pointer;
+    margin-left: 4px;
     margin-top: 8px;
     margin-bottom: 8px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding: 4px 8px;
 }
 
-.color-block{
+.color-block {
     display: inline;
     float: left;
     margin-right: 4px;
@@ -51,10 +50,15 @@ body {
     height: 16px;
 }
 
-.sketch-picker{
+.sketch-picker {
     box-shadow: none !important;
 }
 
 .mdc-dialog .mdc-dialog__surface {
     max-width: none !important;
+}
+
+label {
+    text-align: center;
+    line-height: 40px;
 }

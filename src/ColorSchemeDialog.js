@@ -7,20 +7,22 @@ import Dialog, {
 import {delDialog} from "./index"
 import "@material/react-dialog/dist/dialog.css"
 import "@material/react-text-field/dist/text-field.css"
-import TextField, {HelperText, Input} from "@material/react-text-field"
+import TextField, {Input} from "@material/react-text-field"
 import {SketchPicker} from "react-color"
 import cloneDeep from "lodash/cloneDeep"
-import {Body1} from "@material/react-typography"
+import "@material/react-checkbox/dist/checkbox.css"
 import {generateHighlight} from "./highlightGenerator"
 import {previewText} from "./previewText"
+import Checkbox from "@material/react-checkbox"
 
 function ColorItem(props) {
     return (
         <div className={"color-item"}
              style={{background: props.selected ? "#00000015" : "transparent"}}
              onClick={props.onClick}>
-            <span className={"color-block"} style={{background: props.color}}/>
-            <span>{props.name}</span>
+            <span className={"color-block"}
+                  style={{background: props.color}}/>
+            <span style={{fontWeight: props.isBold ? "bold" : "normal"}}>{props.name}</span>
         </div>
     )
 }
@@ -28,9 +30,10 @@ function ColorItem(props) {
 function ColorList(props) {
     return (
         <div className={"color-list"}>
-            {props.colors.map((color, index) => <ColorItem
+            {props.styles.map((style, index) => <ColorItem
                 key={index}
-                color={color}
+                color={style.color}
+                isBold={style.isBold}
                 name={colorNameList[index]}
                 selected={index === props.selectedIndex}
                 onClick={() => props.onSelect(index)}
@@ -61,20 +64,20 @@ export class ColorSchemeDialog extends Component {
             selectedColorIndex: 0,
             colorScheme: {
                 name: "New Color Scheme",
-                isDark: false,
-                colors: [
-                    "#f2777a",
-                    "#f99157",
-                    "#ffcc66",
-                    "#99cc99",
-                    "#66cccc",
-                    "#6699cc",
-                    "#f2f0ec",
-                    "#cc99cc",
-                    "#d3d0c8",
-                    "#e8e6df",
-                    "#d27b53",
-                    "#6699cc",
+                isDark: true,
+                styles: [
+                    {color: "#f2777a", isBold: false},
+                    {color: "#f99157", isBold: false},
+                    {color: "#ffcc66", isBold: false},
+                    {color: "#99cc99", isBold: false},
+                    {color: "#66cccc", isBold: false},
+                    {color: "#6699cc", isBold: false},
+                    {color: "#f2f0ec", isBold: false},
+                    {color: "#cc99cc", isBold: false},
+                    {color: "#d3d0c8", isBold: false},
+                    {color: "#e8e6df", isBold: false},
+                    {color: "#d27b53", isBold: false},
+                    {color: "#6699cc", isBold: false},
                 ],
             },
         }
@@ -99,37 +102,63 @@ export class ColorSchemeDialog extends Component {
                         }}/>
                     </TextField>
                     <div className={"color-dialog-main-content"}>
-                        <div className={"color-preview-box"} style={{background:"#222"}}>
-                            {generateHighlight(previewText,this.state.colorScheme.colors)}
+                        <div>
+                            <Checkbox
+                                nativeControlId="is-dark"
+                                checked={this.state.colorScheme.isDark}
+                                onChange={(e) => {
+                                    const newScheme = cloneDeep(this.state.colorScheme)
+                                    newScheme.isDark = e.target.checked
+                                    this.setState({colorScheme: newScheme})
+                                }}
+                            />
+                            <label htmlFor='is-dark'>Dark Background</label>
+                            <div className={"color-preview-box"}
+                                 style={{background: this.state.colorScheme.isDark ? "#222" : "transparent"}}>
+                                {generateHighlight(previewText, this.state.colorScheme.styles)}
+                            </div>
                         </div>
                         <ColorList
-                            colors={this.state.colorScheme.colors}
+                            styles={this.state.colorScheme.styles}
                             selectedIndex={this.state.selectedColorIndex}
                             onSelect={(index) => this.setState({selectedColorIndex: index})}/>
-                        <SketchPicker
-                            disableAlpha
-                            presetColors={[
-                                "#f2777a",
-                                "#f99157",
-                                "#ffcc66",
-                                "#99cc99",
-                                "#66cccc",
-                                "#6699cc",
-                                "#f2f0ec",
-                                "#cc99cc",
-                                "#d3d0c8",
-                                "#e8e6df",
-                                "#d27b53",
-                                "#6699cc",
-                            ]}
-                            color={this.state.colorScheme.colors[this.state.selectedColorIndex]}
-                            onChangeComplete={(color) => {
-                                const newScheme = cloneDeep(this.state.colorScheme)
-                                newScheme.colors[this.state.selectedColorIndex] = color.hex
-                                this.setState({colorScheme: newScheme})
-                                this.updatePreview()
-                            }}
-                        />
+                        <div>
+                            <Checkbox
+                                nativeControlId="is-bold"
+                                checked={this.state.colorScheme.styles[this.state.selectedColorIndex].isBold}
+                                onChange={(e) => {
+                                    const newScheme = cloneDeep(this.state.colorScheme)
+                                    newScheme.styles[this.state.selectedColorIndex].isBold = e.target.checked
+                                    console.log(newScheme)
+                                    this.setState({colorScheme: newScheme})
+                                }}
+                            />
+                            <label htmlFor='is-bold'>Bold</label>
+                            <SketchPicker
+                                disableAlpha
+                                presetColors={[
+                                    "#f2777a",
+                                    "#f99157",
+                                    "#ffcc66",
+                                    "#99cc99",
+                                    "#66cccc",
+                                    "#6699cc",
+                                    "#f2f0ec",
+                                    "#cc99cc",
+                                    "#d3d0c8",
+                                    "#e8e6df",
+                                    "#d27b53",
+                                    "#6699cc",
+                                ]}
+                                color={this.state.colorScheme.styles[this.state.selectedColorIndex].color}
+                                onChangeComplete={(color) => {
+                                    const newScheme = cloneDeep(this.state.colorScheme)
+                                    newScheme.styles[this.state.selectedColorIndex].color = color.hex
+                                    this.setState({colorScheme: newScheme})
+                                }}
+                            />
+                        </div>
+
                     </div>
                 </DialogContent>
                 <DialogFooter>
