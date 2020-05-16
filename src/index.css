@@ -2,3 +2,48 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.content{
+    padding-left: 64px;
+    padding-right: 64px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.add-btn{
+    float: right;
+}
+
+.color-dialog-main-content{
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.color-list{
+    margin-left: 32px;
+    margin-right: 32px;
+}
+
+.color-item{
+    cursor: pointer;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.color-block{
+    display: inline;
+    float: left;
+    margin-right: 4px;
+    transform: translateY(4px);
+    width: 16px;
+    height: 16px;
+}
+
+.sketch-picker{
+    box-shadow: none !important;
+}
