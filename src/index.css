@@ -83,3 +83,25 @@ h5 {
     align-items: center;
     align-content: center;
 }
+
+.color-scheme-name{
+    margin-left: 32px !important;
+    color: rgba(0,0,0,0.6) !important;
+}
+
+span:focus {
+    outline: none;
+}
+
+.url-textField{
+    width: 100%;
+    min-width: 450px;
+}
+
+.color-scheme-select{
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}

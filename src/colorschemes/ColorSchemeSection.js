@@ -9,15 +9,7 @@ import {Headline5} from "@material/react-typography"
 import Button from "@material/react-button"
 import {showDialog} from "../index"
 import cloneDeep from "lodash/cloneDeep"
-
-function ColorSchemePreview(props) {
-    let colorBlocks = props.styles.map((style, index) =>
-        <span className={"preview-color-block"}
-              key={index}
-              style={{background: style.color}}/>)
-    return <div className={"preview-color-div"}
-                style={{background: props.isDark ? "#222" : "transparent"}}>{colorBlocks}</div>
-}
+import {ColorSchemePreview} from "./ColorSchemePreview"
 
 export class ColorSchemeSection extends React.Component {
     constructor(props) {
@@ -44,7 +36,7 @@ export class ColorSchemeSection extends React.Component {
             <ListItem key={colorScheme.id}>
                 <ListItemText primaryText={colorScheme.name}
                               secondaryText={colorScheme.isDark ? "Dark Background" : "Light Background"}/>
-                <ListItemMeta meta={<ColorSchemePreview styles={colorScheme.styles} isDark={colorScheme.isDark}/>}/>
+                <ListItemMeta meta={<ColorSchemePreview colorScheme={colorScheme} styles={colorScheme.styles} isDark={colorScheme.isDark}/>}/>
                 <ListItemMeta meta={<div>
                     <IconButton onClick={() => showDialog(
                         <ColorSchemeDialog colorSchemeId={colorScheme.id}

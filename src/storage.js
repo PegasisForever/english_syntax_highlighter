@@ -22,18 +22,23 @@ const defaultColorScheme = {
 }
 let colorSchemes = [defaultColorScheme]
 
+let inited = false
+
 export function initStorage(callback) {
-    if (chrome.storage) {
-        chrome.storage.sync.get(["colorSchemes"], (result) => {
+    if (inited) {
+        callback()
+    } else if (chrome.storage) {
+        chrome.storage.sync.get(["colorSchemes", "rules"], (result) => {
             colorSchemes = cloneDeep(result.colorSchemes)
+            rules = cloneDeep(result.rules)
+            inited = true
             callback()
         })
     } else {
+        inited = true
         callback()
     }
 }
-
-getColorSchemeList((list) => colorSchemes = list)
 
 export function saveColorScheme(colorScheme) {
     const newColorSchemes = cloneDeep(colorSchemes)
@@ -83,5 +88,73 @@ export function deleteColorScheme(id) {
     colorSchemes = newColorSchemes
     if (chrome.storage) {
         chrome.storage.sync.set({colorSchemes: newColorSchemes})
+    }
+}
+
+
+const defaultRules = [
+    {
+        id: "65a46cca-97e0-11ea-bb37-0242ac130002",
+        url: "https://me.pegasis.site/*+",
+        colorSchemeId: "6c7cb460-97dd-11ea-b882-351ff2ea37df",
+    },
+]
+
+const emptyRule = {
+    id: undefined,
+    url: "",
+    colorSchemeId: "",
+}
+
+let rules = cloneDeep(defaultRules)
+
+export function saveRule(rule) {
+    const newRules = cloneDeep(rules)
+
+    let isNew = true
+    for (let i = 0; i < newRules.length; i++) {
+        if (rule.id === newRules[i].id) {
+            newRules[i] = rule
+            isNew = false
+            break
+        }
+    }
+    if (isNew) {
+        newRules.push(rule)
+    }
+
+    rules = newRules
+    if (chrome.storage) {
+        chrome.storage.sync.set({rules: newRules})
+    }
+}
+
+export function getRuleList() {
+    return cloneDeep(rules)
+}
+
+export function getRule(id) {
+    for (let i = 0; i < rules.length; i++) {
+        if (id === rules[i].id) {
+            return cloneDeep(rules[i])
+        }
+    }
+
+    const newEmptyRule = cloneDeep(emptyRule)
+    newEmptyRule.id = id
+    return newEmptyRule
+}
+
+export function deleteRule(id) {
+    const newRules = cloneDeep(rules)
+    for (let i = 0; i < newRules.length; i++) {
+        if (id === newRules[i].id) {
+            newRules.splice(i, 1)
+            break
+        }
+    }
+    rules = newRules
+    if (chrome.storage) {
+        chrome.storage.sync.set({rules: newRules})
     }
 }

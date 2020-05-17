@@ -15,6 +15,7 @@ import "@material/react-icon-button/dist/icon-button.css"
 import "@material/react-button/dist/button.css"
 import "@material/react-list/dist/list.css"
 import {ColorSchemeSection} from "./colorschemes/ColorSchemeSection"
+import {RulesSection} from "./rules/RulesSection"
 
 let showDialog
 let delDialog
@@ -56,6 +57,7 @@ class SettingsPage extends React.Component {
                 </TopAppBar>
                 <TopAppBarFixedAdjust className={"content"}>
                     <ColorSchemeSection/>
+                    <RulesSection/>
                 </TopAppBarFixedAdjust>
                 {this.state.dialog}
             </Fragment>
