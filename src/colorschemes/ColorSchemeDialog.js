@@ -4,17 +4,17 @@ import Dialog, {
     DialogFooter,
     DialogButton,
 } from "@material/react-dialog"
-import {delDialog} from "./index"
+import {delDialog} from "../index"
 import "@material/react-dialog/dist/dialog.css"
 import "@material/react-text-field/dist/text-field.css"
 import TextField, {Input} from "@material/react-text-field"
 import {SketchPicker} from "react-color"
 import cloneDeep from "lodash/cloneDeep"
 import "@material/react-checkbox/dist/checkbox.css"
-import {generateHighlight} from "./highlightGenerator"
+import {generateHighlight} from "../highlightGenerator"
 import {previewText} from "./previewText"
 import Checkbox from "@material/react-checkbox"
-import {getColorScheme, saveColorScheme} from "./storage"
+import {getColorScheme, saveColorScheme} from "../storage"
 
 function ColorItem(props) {
     return (
@@ -127,7 +127,7 @@ export class ColorSchemeDialog extends Component {
                                     "#6699cc",
                                 ]}
                                 color={this.state.colorScheme.styles[this.state.selectedColorIndex].color}
-                                onChangeComplete={(color) => {
+                                onChange={(color) => {
                                     const newScheme = cloneDeep(this.state.colorScheme)
                                     newScheme.styles[this.state.selectedColorIndex].color = color.hex
                                     this.setState({colorScheme: newScheme})

@@ -20,7 +20,7 @@ const defaultColorScheme = {
         {color: "#6699cc", isBold: false},
     ],
 }
-let colorSchemes = []
+let colorSchemes = [defaultColorScheme]
 
 export function initStorage(callback) {
     if (chrome.storage) {
