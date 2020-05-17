@@ -106,7 +106,6 @@ export class ColorSchemeDialog extends Component {
                                 onChange={(e) => {
                                     const newScheme = cloneDeep(this.state.colorScheme)
                                     newScheme.styles[this.state.selectedColorIndex].isBold = e.target.checked
-                                    console.log(newScheme)
                                     this.setState({colorScheme: newScheme})
                                 }}
                             />

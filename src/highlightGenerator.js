@@ -3,7 +3,6 @@ import React from "react"
 
 export const generateHighlight = (response, styles) => {
     const root = parse(response)
-    console.log(root)
 
     let resultText = []
     root.childNodes.forEach((node, index) => {

@@ -2,6 +2,7 @@
   "name": "english_syntax_highlighter",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@material/react-button": "^0.15.0",
     "@material/react-checkbox": "^0.15.0",
@@ -26,7 +27,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && node remove-inline.js",
+    "remove-inline": "node remove-inline.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

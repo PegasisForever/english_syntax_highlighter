@@ -3,7 +3,7 @@ import cloneDeep from "lodash/cloneDeep"
 
 const defaultColorScheme = {
     name: "Default Color Scheme",
-    id: "0",
+    id: "6c7cb460-97dd-11ea-b882-351ff2ea37df",
     isDark: true,
     styles: [
         {color: "#f2777a", isBold: false},
@@ -20,31 +20,17 @@ const defaultColorScheme = {
         {color: "#6699cc", isBold: false},
     ],
 }
-let colorSchemes = [{
-    name: "Default Color Scheme",
-    id: "0",
-    isDark: true,
-    styles: [
-        {color: "#f2777a", isBold: false},
-        {color: "#f99157", isBold: false},
-        {color: "#ffcc66", isBold: false},
-        {color: "#99cc99", isBold: false},
-        {color: "#66cccc", isBold: false},
-        {color: "#6699cc", isBold: false},
-        {color: "#f2f0ec", isBold: false},
-        {color: "#cc99cc", isBold: false},
-        {color: "#d3d0c8", isBold: false},
-        {color: "#e8e6df", isBold: false},
-        {color: "#d27b53", isBold: false},
-        {color: "#6699cc", isBold: false},
-    ],
-}]
+let colorSchemes = []
 
 export function initStorage(callback) {
-    // chrome.storage.sync.get(["colorSchemes"], (result) => {
-//     colorSchemes = JSON.parse(result.key)
-// })
-    callback()
+    if (chrome.storage) {
+        chrome.storage.sync.get(["colorSchemes"], (result) => {
+            colorSchemes = cloneDeep(result.colorSchemes)
+            callback()
+        })
+    } else {
+        callback()
+    }
 }
 
 getColorSchemeList((list) => colorSchemes = list)
@@ -65,7 +51,9 @@ export function saveColorScheme(colorScheme) {
     }
 
     colorSchemes = newColorSchemes
-    // chrome.storage.sync.set({colorSchemes: newColorSchemes})
+    if (chrome.storage) {
+        chrome.storage.sync.set({colorSchemes: newColorSchemes})
+    }
 }
 
 export function getColorSchemeList() {
@@ -93,5 +81,7 @@ export function deleteColorScheme(id) {
         }
     }
     colorSchemes = newColorSchemes
-    // chrome.storage.sync.set({colorSchemes: newColorSchemes})
+    if (chrome.storage) {
+        chrome.storage.sync.set({colorSchemes: newColorSchemes})
+    }
 }
