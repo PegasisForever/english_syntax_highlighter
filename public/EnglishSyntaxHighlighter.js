@@ -16,7 +16,12 @@ chrome.storage.sync.get(["colorSchemes", "rules", "isEnabled"], (result) => {
                         matched.childNodes.forEach((node) => {
                             if (node.nodeType === Node.TEXT_NODE) {
                                 console.log(`Found text node: ${currentUrl} "${node.textContent}"`)
-                                replace(node, matched, colorScheme)
+                                pendingTextNodesData.push({
+                                    node: node,
+                                    parentNode: matched,
+                                    colorScheme: colorScheme,
+                                    replacing: false,
+                                })
                             }
                         })
                     })
@@ -25,15 +30,38 @@ chrome.storage.sync.get(["colorSchemes", "rules", "isEnabled"], (result) => {
                 }
             }
         })
+        replaceVisible()
+        window.addEventListener("scroll", replaceVisible)
     }
 })
 
-function replace(node, parentNode, colorScheme) {
+let pendingTextNodesData = []
+let lastReplaceTime = 0
+
+function replaceVisible() {
+    if (pendingTextNodesData.length === 0) return
+    let currentTime = Date.now()
+    if (currentTime - lastReplaceTime < 500) {
+        return
+    } else {
+        lastReplaceTime = currentTime
+    }
+    pendingTextNodesData
+        .filter(nodeData => !nodeData.replacing && isInViewport(nodeData.node))
+        .forEach((nodeData) => {
+            nodeData.replacing = true
+            replace(nodeData.node, nodeData.parentNode, nodeData.colorScheme, () => {
+                pendingTextNodesData.splice(pendingTextNodesData.indexOf(nodeData), 1)
+            })
+        })
+}
+
+function replace(node, parentNode, colorScheme, callback) {
     const text = node.textContent
 
     getColoredNode(text, colorScheme, (ColoredNode) => {
-        console.log(ColoredNode)
         parentNode.replaceChild(ColoredNode, node)
+        callback()
     })
 }
 
@@ -76,4 +104,24 @@ function createSpan(text, color, isBold) {
 
 function createBr() {
     return document.createElement("br")
+}
+
+function isInViewport(node) {
+    let bounding
+    if (node.nodeType === Node.TEXT_NODE) {
+        let span = createSpan()
+        node.parentNode.replaceChild(span, node)
+        span.appendChild(node)
+        bounding = span.getBoundingClientRect()
+        span.parentNode.replaceChild(node, span)
+    } else {
+        bounding = node.getBoundingClientRect()
+    }
+
+    return (
+        bounding.bottom > 0 &&
+        bounding.top < (window.innerHeight || document.documentElement.clientHeight) &&
+        bounding.right > 0 &&
+        bounding.left < (window.innerWidth || document.documentElement.clientWidth)
+    )
 }
