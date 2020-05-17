@@ -127,13 +127,18 @@ span:focus {
   outline: none;
 }
 
-.url-textField {
+.url-textfield {
   width: 100%;
   min-width: 450px;
 }
 
+.selector-textfield {
+  margin-top: 16px;
+  width: 100%;
+}
+
 .color-scheme-select {
-  margin-top: 32px;
+  margin-top: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;

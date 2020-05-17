@@ -136,6 +136,7 @@ const defaultRules = [
     {
         id: "65a46cca-97e0-11ea-bb37-0242ac130002",
         url: "https://me.pegasis.site/*+",
+        selector: "#info_bar > div > p",
         colorSchemeId: "6c7cb460-97dd-11ea-b882-351ff2ea37df",
     },
 ]
@@ -143,6 +144,7 @@ const defaultRules = [
 const emptyRule = {
     id: undefined,
     url: "",
+    selector: "",
     colorSchemeId: "",
 }
 

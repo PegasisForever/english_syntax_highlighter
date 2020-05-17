@@ -61,6 +61,7 @@ chrome.runtime.onInstalled.addListener(() => {
         {
             id: "65a46cca-97e0-11ea-bb37-0242ac130002",
             url: "https://me.pegasis.site/*+",
+            selector: "#info_bar > div > p",
             colorSchemeId: "6c7cb460-97dd-11ea-b882-351ff2ea37df",
         },
     ]
@@ -71,6 +72,6 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.tabs.onUpdated.addListener(function (tabId, info, tab) {
     if (info.status === "complete") {
         console.log(tab)
-        chrome.tabs.executeScript(tab.id, {file: "inject.js"});
+        chrome.tabs.executeScript(tab.id, {file: "inject.js"})
     }
 })

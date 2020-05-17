@@ -27,11 +27,19 @@ export class RulesDialog extends Component {
         return (
             <Dialog open onClose={() => delDialog()}>
                 <DialogContent>
-                    <TextField className={"url-textField"} label="URL Regex"><Input
+                    <TextField className={"url-textfield"} label="URL Regex"><Input
                         value={this.state.rule.url}
                         onChange={(e) => {
                             const newRule = cloneDeep(this.state.rule)
                             newRule.url = e.currentTarget.value
+                            this.setState({rule: newRule})
+                        }}/>
+                    </TextField>
+                    <TextField className={"selector-textfield"} label="CSS Selector (Use ; to divide multiple selectors.)"><Input
+                        value={this.state.rule.selector}
+                        onChange={(e) => {
+                            const newRule = cloneDeep(this.state.rule)
+                            newRule.selector = e.currentTarget.value
                             this.setState({rule: newRule})
                         }}/>
                     </TextField>
@@ -53,8 +61,8 @@ export class RulesDialog extends Component {
 
                 </DialogContent>
                 <DialogFooter>
-                    <DialogButton action='cancel'>Cancel</DialogButton>
-                    <DialogButton action='save' isDefault onClick={() => {
+                    <DialogButton action="cancel">Cancel</DialogButton>
+                    <DialogButton action="save" isDefault onClick={() => {
                         saveRule(this.state.rule)
                         this.props.onSave()
                     }}>Save</DialogButton>
