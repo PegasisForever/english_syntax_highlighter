@@ -138,6 +138,11 @@ const defaultRules = [
         url: "https:\\/\\/me.pegasis.site\\/",
         selector: "#info_bar > div > p",
         colorSchemeId: "6c7cb460-97dd-11ea-b882-351ff2ea37df",
+    }, {
+        id: "8fe38762-9841-11ea-bb37-0242ac130002",
+        url: "https:\\/\\/en.wikipedia.org\\/",
+        selector: ".mw-parser-output > p, .mw-parser-output > ul > li",
+        colorSchemeId: "d2d76930-97ec-11ea-a7a9-615bf68b414f",
     },
 ]
 
