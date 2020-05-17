@@ -5,17 +5,14 @@ chrome.storage.sync.get(["colorSchemes", "rules", "isEnabled"], (result) => {
         const currentUrl = window.location.href
         result.rules.forEach((rule) => {
             if (RegExp(rule.url).test(currentUrl)) {
-                console.log(`URL matched: ${rule.url} ${currentUrl}`)
+                console.log(`Rule matched: url=${rule.url} selector=${rule.selector}`)
 
                 const colorScheme = result.colorSchemes.find(colorScheme => colorScheme.id === rule.colorSchemeId)
                 if (colorScheme) {
                     let matchedElems = document.querySelectorAll(rule.selector)
-                    console.log(`Found ${matchedElems.length} matched elements.`)
-
                     matchedElems.forEach((matched) => {
                         matched.childNodes.forEach((node) => {
                             if (node.nodeType === Node.TEXT_NODE) {
-                                console.log(`Found text node: ${currentUrl} "${node.textContent}"`)
                                 pendingTextNodesData.push({
                                     node: node,
                                     parentNode: matched,
@@ -26,10 +23,11 @@ chrome.storage.sync.get(["colorSchemes", "rules", "isEnabled"], (result) => {
                         })
                     })
                 } else {
-                    console.log("No available color scheme for the rule.")
+                    console.log("No available color scheme for this rule.")
                 }
             }
         })
+        console.log(`Found ${pendingTextNodesData.length} text nodes on this page.`)
         replaceVisible()
         window.addEventListener("scroll", replaceVisible)
     }
