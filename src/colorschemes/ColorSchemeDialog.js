@@ -5,12 +5,11 @@ import Dialog, {
     DialogButton,
 } from "@material/react-dialog"
 import {delDialog} from "../index"
-import "@material/react-dialog/dist/dialog.css"
-import "@material/react-text-field/dist/text-field.css"
+
 import TextField, {Input} from "@material/react-text-field"
 import {SketchPicker} from "react-color"
 import cloneDeep from "lodash/cloneDeep"
-import "@material/react-checkbox/dist/checkbox.css"
+
 import {generateHighlight} from "../highlightGenerator"
 import {previewText} from "./previewText"
 import Checkbox from "@material/react-checkbox"
@@ -94,6 +93,7 @@ export class ColorSchemeDialog extends Component {
                                  style={{background: this.state.colorScheme.isDark ? "#222" : "transparent"}}>
                                 {generateHighlight(previewText, this.state.colorScheme.styles)}
                             </div>
+
                         </div>
                         <ColorList
                             styles={this.state.colorScheme.styles}

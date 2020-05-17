@@ -66,9 +66,10 @@ export function initStorage(callback) {
     if (inited) {
         callback()
     } else if (chrome.storage) {
-        chrome.storage.sync.get(["colorSchemes", "rules"], (result) => {
+        chrome.storage.sync.get(["colorSchemes", "rules", "isEnabled"], (result) => {
             colorSchemes = cloneDeep(result.colorSchemes)
             rules = cloneDeep(result.rules)
+            isEnabled = result.isEnabled
             inited = true
             callback()
         })
@@ -195,5 +196,18 @@ export function deleteRule(id) {
     rules = newRules
     if (chrome.storage) {
         chrome.storage.sync.set({rules: newRules})
+    }
+}
+
+let isEnabled = true
+
+export function getIsEnabled() {
+    return isEnabled
+}
+
+export function setIsEnabled(value) {
+    isEnabled = value
+    if (chrome.storage) {
+        chrome.storage.sync.set({isEnabled: value})
     }
 }

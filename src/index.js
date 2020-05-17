@@ -1,24 +1,45 @@
 import React, {Fragment} from "react"
 import ReactDOM from "react-dom"
-import "./index.css"
-import "@material/react-top-app-bar/dist/top-app-bar.css"
-import "@material/react-material-icon/dist/material-icon.css"
-import "@material/react-fab/dist/fab.css"
+import "./index.scss"
 import TopAppBar, {
     TopAppBarFixedAdjust,
     TopAppBarRow,
     TopAppBarSection,
     TopAppBarTitle,
 } from "@material/react-top-app-bar"
-import "@material/react-typography/dist/typography.css"
-import "@material/react-icon-button/dist/icon-button.css"
-import "@material/react-button/dist/button.css"
-import "@material/react-list/dist/list.css"
 import {ColorSchemeSection} from "./colorschemes/ColorSchemeSection"
 import {RulesSection} from "./rules/RulesSection"
+import Switch from "@material/react-switch"
+import {getIsEnabled, setIsEnabled} from "./storage"
+import Button from "@material/react-button"
 
 let showDialog
 let delDialog
+
+function Toolbar() {
+    return <div className={"toolbar"}>
+        <div>
+            <label htmlFor='enable-switch'>Enable</label>
+            <Switch
+                className={"enable-switch"}
+                nativeControlId='enable-switch'
+                checked={getIsEnabled()}
+                onChange={(e) => {
+                    setIsEnabled(e.target.checked)
+                }}/>
+        </div>
+        <Button
+            onClick={() => {
+            }}>
+            Import
+        </Button>
+        <Button
+            onClick={() => {
+            }}>
+            Export
+        </Button>
+    </div>
+}
 
 class SettingsPage extends React.Component {
     constructor(props) {
@@ -56,6 +77,7 @@ class SettingsPage extends React.Component {
                     </TopAppBarRow>
                 </TopAppBar>
                 <TopAppBarFixedAdjust className={"content"}>
+                    <Toolbar/>
                     <ColorSchemeSection/>
                     <RulesSection/>
                 </TopAppBarFixedAdjust>

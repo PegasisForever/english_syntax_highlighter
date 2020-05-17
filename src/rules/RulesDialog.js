@@ -4,10 +4,7 @@ import Dialog, {DialogButton, DialogContent, DialogFooter} from "@material/react
 import {delDialog} from "../index"
 import TextField, {Input} from "@material/react-text-field"
 import cloneDeep from "lodash/cloneDeep"
-import "@material/react-list/dist/list.css"
-import "@material/react-menu-surface/dist/menu-surface.css"
-import "@material/react-menu/dist/menu.css"
-import "@material/react-select/dist/select.css"
+
 import Select, {Option} from "@material/react-select"
 import {ColorSchemePreview} from "../colorschemes/ColorSchemePreview"
 

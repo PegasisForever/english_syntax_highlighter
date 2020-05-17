@@ -1,11 +1,9 @@
 import React from "react"
 import {
-    deleteColorScheme, deleteRule,
+    deleteRule,
     getColorScheme,
-    getColorSchemeList,
     getRuleList,
-    initStorage,
-    saveColorScheme, saveRule,
+    initStorage,saveRule,
 } from "../storage"
 import List, {ListItem, ListItemMeta, ListItemText} from "@material/react-list"
 import IconButton from "@material/react-icon-button"
@@ -16,7 +14,6 @@ import Button from "@material/react-button"
 import {showDialog} from "../index"
 import cloneDeep from "lodash/cloneDeep"
 import {RulesDialog} from "./RulesDialog"
-import {Option} from "@material/react-select"
 
 
 export class RulesSection extends React.Component {
