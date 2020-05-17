@@ -10,7 +10,7 @@ import TopAppBar, {
 import {ColorSchemeSection} from "./colorschemes/ColorSchemeSection"
 import {RulesSection} from "./rules/RulesSection"
 import Switch from "@material/react-switch"
-import {getIsEnabled, setIsEnabled} from "./storage"
+import {getIsEnabled, initStorage, setIsEnabled} from "./storage"
 import Button from "@material/react-button"
 
 let showDialog
@@ -64,6 +64,10 @@ class SettingsPage extends React.Component {
         this.setState({
             dialog: null,
         })
+    }
+
+    componentDidMount() {
+        initStorage(() => this.setState({}))
     }
 
     render() {
