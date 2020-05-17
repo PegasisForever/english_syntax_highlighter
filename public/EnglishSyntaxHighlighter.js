@@ -1,11 +1,17 @@
 /*global chrome*/
 
+window.esh = {
+    matchedRules: [],
+    textNodeFound: 0,
+    textNodeReplaced: 0,
+}
+
 chrome.storage.sync.get(["colorSchemes", "rules", "isEnabled"], (result) => {
     if (result.isEnabled) {
         const currentUrl = window.location.href
         result.rules.forEach((rule) => {
             if (RegExp(rule.url).test(currentUrl)) {
-                console.log(`Rule matched: url=${rule.url} selector=${rule.selector}`)
+                window.esh.matchedRules.push(rule)
 
                 const colorScheme = result.colorSchemes.find(colorScheme => colorScheme.id === rule.colorSchemeId)
                 if (colorScheme) {
@@ -22,12 +28,11 @@ chrome.storage.sync.get(["colorSchemes", "rules", "isEnabled"], (result) => {
                             }
                         })
                     })
-                } else {
-                    console.log("No available color scheme for this rule.")
                 }
             }
         })
-        console.log(`Found ${pendingTextNodesData.length} text nodes on this page.`)
+
+        window.esh.textNodeFound = pendingTextNodesData.length
         replaceVisible()
         window.addEventListener("scroll", replaceVisible)
     }
@@ -39,7 +44,7 @@ let lastReplaceTime = 0
 function replaceVisible() {
     if (pendingTextNodesData.length === 0) return
     let currentTime = Date.now()
-    if (currentTime - lastReplaceTime < 500) {
+    if (currentTime - lastReplaceTime < 200) {
         return
     } else {
         lastReplaceTime = currentTime
@@ -49,6 +54,7 @@ function replaceVisible() {
         .forEach((nodeData) => {
             nodeData.replacing = true
             replace(nodeData.node, nodeData.parentNode, nodeData.colorScheme, () => {
+                window.esh.textNodeReplaced++
                 pendingTextNodesData.splice(pendingTextNodesData.indexOf(nodeData), 1)
             })
         })

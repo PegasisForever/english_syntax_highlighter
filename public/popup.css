@@ -1,12 +1,13 @@
 html {
     width: 350px;
-    height: 200px;
+    height: 0;
 }
 
 body {
     padding: 16px;
     width: 318px;
-    height: 168px;
+    height: 0;
+    font-family: Roboto, sans-serif;
 }
 
 .mdl-switch {
@@ -18,4 +19,22 @@ body {
     justify-content: space-between;
     align-items: center;
     align-content: center;
+    margin-bottom: 16px;
+}
+
+.rules-title{
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+#rules-list{
+    margin-bottom: 12px;
+}
+
+.rule-item{
+    margin-bottom: 4px;
+}
+
+#has-rule-div{
+    display: none;
 }
