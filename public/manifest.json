@@ -3,15 +3,19 @@
   "version": "1.0",
   "description": "Highlight english words",
   "permissions": [
-    "activeTab",
-    "declarativeContent",
-    "storage"
+    "tabs",
+    "storage",
+    "*://*/*"
   ],
   "background": {
     "scripts": [
       "background.js"
     ],
     "persistent": false
+  },
+  "browser_action": {
+    "default_title": "English Syntax Highlighter",
+    "default_popup": "popup.html"
   },
   "options_page": "index.html",
   "manifest_version": 2

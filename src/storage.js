@@ -207,6 +207,9 @@ export function getIsEnabled() {
 
 export function setIsEnabled(value) {
     isEnabled = value
+    if (chrome.browserAction) {
+        chrome.browserAction.setBadgeText({text: value ? "On" : "Off"})
+    }
     if (chrome.storage) {
         chrome.storage.sync.set({isEnabled: value})
     }

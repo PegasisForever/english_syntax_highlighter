@@ -32,8 +32,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build && node remove-inline.js",
     "remove-inline": "node remove-inline.js",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "copy-public": "cp public/* build/"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -64,5 +64,13 @@ chrome.runtime.onInstalled.addListener(() => {
             colorSchemeId: "6c7cb460-97dd-11ea-b882-351ff2ea37df",
         },
     ]
-    chrome.storage.sync.set({colorSchemes: defaultColorSchemes, rules: defaultRules})
+    chrome.storage.sync.set({colorSchemes: defaultColorSchemes, rules: defaultRules, isEnabled: true})
+    chrome.browserAction.setBadgeText({text: "On"})
+})
+
+chrome.tabs.onUpdated.addListener(function (tabId, info, tab) {
+    if (info.status === "complete") {
+        console.log(tab)
+        chrome.tabs.executeScript(tab.id, {file: "inject.js"});
+    }
 })
