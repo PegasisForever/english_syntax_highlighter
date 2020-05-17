@@ -40,7 +40,7 @@ export class ColorSchemeSection extends React.Component {
     }
 
     render() {
-        let listItems = getColorSchemeList().map((colorScheme) =>
+        let listItems = this.state.colorSchemeList.map((colorScheme) =>
             <ListItem key={colorScheme.id}>
                 <ListItemText primaryText={colorScheme.name}
                               secondaryText={colorScheme.isDark ? "Dark Background" : "Light Background"}/>

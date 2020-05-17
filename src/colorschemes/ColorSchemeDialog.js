@@ -138,7 +138,10 @@ export class ColorSchemeDialog extends Component {
                 </DialogContent>
                 <DialogFooter>
                     <DialogButton action='cancel'>Cancel</DialogButton>
-                    <DialogButton action='save' isDefault onClick={()=>saveColorScheme(this.state.colorScheme)}>Save</DialogButton>
+                    <DialogButton action='save' isDefault onClick={()=>{
+                        saveColorScheme(this.state.colorScheme)
+                        this.props.onSave()
+                    }}>Save</DialogButton>
                 </DialogFooter>
             </Dialog>
         )
