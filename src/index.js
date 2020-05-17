@@ -19,7 +19,7 @@ let delDialog
 function Toolbar() {
     return <div className={"toolbar"}>
         <div>
-            <label htmlFor='enable-switch'>Enable</label>
+            <label id="enable-label" htmlFor='enable-switch'>Enable</label>
             <Switch
                 className={"enable-switch"}
                 nativeControlId='enable-switch'
