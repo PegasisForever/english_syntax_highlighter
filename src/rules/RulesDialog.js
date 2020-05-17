@@ -35,7 +35,7 @@ export class RulesDialog extends Component {
                             this.setState({rule: newRule})
                         }}/>
                     </TextField>
-                    <TextField className={"selector-textfield"} label="CSS Selector (Use ; to divide multiple selectors.)"><Input
+                    <TextField className={"selector-textfield"} label="CSS Selector"><Input
                         value={this.state.rule.selector}
                         onChange={(e) => {
                             const newRule = cloneDeep(this.state.rule)
