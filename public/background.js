@@ -64,6 +64,12 @@ chrome.runtime.onInstalled.addListener(() => {
             selector: "#info_bar > div > p",
             colorSchemeId: "6c7cb460-97dd-11ea-b882-351ff2ea37df",
         },
+        {
+            id: "8fe38762-9841-11ea-bb37-0242ac130002",
+            url: "https:\\/\\/en.wikipedia.org\\/",
+            selector: ".mw-parser-output > p",
+            colorSchemeId: "d2d76930-97ec-11ea-a7a9-615bf68b414f",
+        },
     ]
     chrome.storage.sync.set({colorSchemes: defaultColorSchemes, rules: defaultRules, isEnabled: true})
     chrome.browserAction.setBadgeText({text: "On"})
@@ -72,6 +78,6 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.tabs.onUpdated.addListener(function (tabId, info, tab) {
     if (info.status === "complete") {
         console.log(tab)
-        chrome.tabs.executeScript(tab.id, {file: "inject.js"})
+        chrome.tabs.executeScript(tab.id, {file: "EnglishSyntaxHighlighter.js"})
     }
 })

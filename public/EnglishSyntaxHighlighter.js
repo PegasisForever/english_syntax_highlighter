@@ -58,7 +58,7 @@ function getParseResponse(text, callback) {
         headers: {
             "Content-type": "application/json; charset=UTF-8",
         },
-        body: `{"text":"${text}"}`,
+        body: JSON.stringify({text: text}),
     }).then(function (data) {
         data.text().then((text) => callback(JSON.parse(text)))
     }).catch(function (error) {
