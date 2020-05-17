@@ -62,3 +62,24 @@ label {
     text-align: center;
     line-height: 40px;
 }
+
+h5 {
+    margin-bottom: 16px;
+}
+
+.preview-color-block {
+    margin: 2px;
+    width: 16px;
+    height: 16px;
+}
+
+.preview-color-div {
+    margin-left: 32px;
+    padding: 2px;
+    width: 120px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}

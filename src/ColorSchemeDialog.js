@@ -14,6 +14,7 @@ import "@material/react-checkbox/dist/checkbox.css"
 import {generateHighlight} from "./highlightGenerator"
 import {previewText} from "./previewText"
 import Checkbox from "@material/react-checkbox"
+import {getColorScheme, saveColorScheme} from "./storage"
 
 function ColorItem(props) {
     return (
@@ -62,33 +63,9 @@ export class ColorSchemeDialog extends Component {
         super(props)
         this.state = {
             selectedColorIndex: 0,
-            colorScheme: {
-                name: "New Color Scheme",
-                isDark: true,
-                styles: [
-                    {color: "#f2777a", isBold: false},
-                    {color: "#f99157", isBold: false},
-                    {color: "#ffcc66", isBold: false},
-                    {color: "#99cc99", isBold: false},
-                    {color: "#66cccc", isBold: false},
-                    {color: "#6699cc", isBold: false},
-                    {color: "#f2f0ec", isBold: false},
-                    {color: "#cc99cc", isBold: false},
-                    {color: "#d3d0c8", isBold: false},
-                    {color: "#e8e6df", isBold: false},
-                    {color: "#d27b53", isBold: false},
-                    {color: "#6699cc", isBold: false},
-                ],
-            },
+            colorScheme: getColorScheme(props.colorSchemeId),
         }
-        this.updatePreview = this.updatePreview.bind(this)
     }
-
-
-    updatePreview() {
-
-    }
-
     render() {
         return (
             <Dialog open onClose={() => delDialog()}>
@@ -158,12 +135,11 @@ export class ColorSchemeDialog extends Component {
                                 }}
                             />
                         </div>
-
                     </div>
                 </DialogContent>
                 <DialogFooter>
                     <DialogButton action='cancel'>Cancel</DialogButton>
-                    <DialogButton action='save' isDefault>Save</DialogButton>
+                    <DialogButton action='save' isDefault onClick={()=>saveColorScheme(this.state.colorScheme)}>Save</DialogButton>
                 </DialogFooter>
             </Dialog>
         )
